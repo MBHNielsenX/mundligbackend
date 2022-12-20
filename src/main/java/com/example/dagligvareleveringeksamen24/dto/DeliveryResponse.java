@@ -29,9 +29,15 @@ public class DeliveryResponse {
 
         public DeliveryResponse(Delivery delivery) {
             this.id = delivery.getId();
-            this.deliveryDate = delivery.getDeliveryDate();
-            this.fromWarehouse = delivery.getFromWarehouse();
-            this.destination = delivery.getDestination();
+            if (delivery.getDeliveryDate() != null) {
+                this.deliveryDate = delivery.getDeliveryDate();
+            }
+            if (delivery.getFromWarehouse() != null) {
+                this.fromWarehouse = delivery.getFromWarehouse();
+            }
+            if (delivery.getDestination() != null) {
+                this.destination = delivery.getDestination();
+            }
             if (delivery.getProductOrders() != null) {
                 this.productOrders = delivery.getProductOrders();
             }

@@ -3,9 +3,11 @@ package com.example.dagligvareleveringeksamen24.configuration;
 import com.example.dagligvareleveringeksamen24.entity.Delivery;
 import com.example.dagligvareleveringeksamen24.entity.Product;
 import com.example.dagligvareleveringeksamen24.entity.ProductOrder;
+import com.example.dagligvareleveringeksamen24.entity.Van;
 import com.example.dagligvareleveringeksamen24.repository.DeliveryRepository;
 import com.example.dagligvareleveringeksamen24.repository.ProductOrderRepository;
 import com.example.dagligvareleveringeksamen24.repository.ProductRepository;
+import com.example.dagligvareleveringeksamen24.repository.VanRepository;
 import com.example.dagligvareleveringeksamen24.service.ProductService;
 import lombok.SneakyThrows;
 import org.springframework.boot.ApplicationArguments;
@@ -22,19 +24,39 @@ public class ProductConfiguration implements ApplicationRunner {
     ProductService productService;
     private final ProductOrderRepository productOrderRepository;
     private final DeliveryRepository deliveryRepository;
+    private final VanRepository vanRepository;
 
     public ProductConfiguration(ProductRepository productRepository, ProductService productService,
                                 ProductOrderRepository productOrderRepository,
-                                DeliveryRepository deliveryRepository) {
+                                DeliveryRepository deliveryRepository,
+                                VanRepository vanRepository) {
         this.productRepository = productRepository;
         this.productService = productService;
         this.productOrderRepository = productOrderRepository;
         this.deliveryRepository = deliveryRepository;
+        this.vanRepository = vanRepository;
     }
 
     @Override
     @SneakyThrows
     public void run(ApplicationArguments args) throws Exception {
+        Van van1 = Van.builder()
+                .brand("Ford")
+                .model("V70")
+                .capacity(1000)
+                .build();
+        Van van2 = Van.builder()
+                .brand("Volvo")
+                .model("V90")
+                .capacity(1000)
+                .build();
+        Van van3 = Van.builder()
+                .brand("Mercedes")
+                .model("V60")
+                .capacity(1000)
+                .build();
+        vanRepository.saveAll(List.of(van1, van2, van3));
+
         Product product1 = Product.builder()
                 .name("Milk")
                 .price(10)
@@ -80,11 +102,7 @@ public class ProductConfiguration implements ApplicationRunner {
                 .price(90)
                 .weight(9)
                 .build();
-        Product product10 = Product.builder()
-                .name("Beef")
-                .price(100)
-                .weight(10)
-                .build();
+
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
@@ -94,7 +112,7 @@ public class ProductConfiguration implements ApplicationRunner {
         productRepository.save(product7);
         productRepository.save(product8);
         productRepository.save(product9);
-        productRepository.save(product10);
+
 
         ProductOrder productOrder1 = ProductOrder.builder()
                 .product(product1)
@@ -133,7 +151,7 @@ public class ProductConfiguration implements ApplicationRunner {
                 .quantity(9)
                 .build();
         ProductOrder productOrder10 = ProductOrder.builder()
-                .product(product10)
+                .product(product9)
                 .quantity(10)
                 .build();
         productOrderRepository.save(productOrder1);
@@ -192,6 +210,10 @@ public class ProductConfiguration implements ApplicationRunner {
         productOrderRepository.save(productOrder6);
         productOrderRepository.save(productOrder7);
         productOrderRepository.save(productOrder8);
+
+        van1.setDeliveries(List.of(delivery1, delivery2));
+        van2.setDeliveries(List.of(delivery3));
+        van3.setDeliveries(List.of(delivery4));
     }
 
 

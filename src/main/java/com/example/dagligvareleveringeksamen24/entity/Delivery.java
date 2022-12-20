@@ -22,13 +22,13 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private LocalDate deliveryDate;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String fromWarehouse;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String destination;
 
     @OneToMany(mappedBy = "delivery")
