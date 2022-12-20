@@ -32,8 +32,9 @@ public class DeliveryResponse {
             this.deliveryDate = delivery.getDeliveryDate();
             this.fromWarehouse = delivery.getFromWarehouse();
             this.destination = delivery.getDestination();
-            this.productOrders = delivery.getProductOrders();
-
+            if (delivery.getProductOrders() != null) {
+                this.productOrders = delivery.getProductOrders();
+            }
         }
 
 }

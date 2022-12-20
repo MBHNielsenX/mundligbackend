@@ -24,6 +24,8 @@ public class ProductOrderResponse {
         this.id = productOrder.getId();
         this.quantity = productOrder.getQuantity();
         this.product = new ProductResponse(productOrder.getProduct());
-        this.delivery = new DeliveryResponse(productOrder.getDelivery());
+        if (productOrder.getDelivery() != null) {
+            this.delivery = new DeliveryResponse(productOrder.getDelivery());
+        }
     }
 }
