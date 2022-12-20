@@ -35,6 +35,9 @@ public class Delivery {
     @ToString.Exclude
     private List<ProductOrder> productOrders;
 
+    @ManyToOne
+    private Van van;
+
     @CreationTimestamp
     private LocalDateTime created;
 
