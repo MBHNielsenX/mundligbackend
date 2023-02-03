@@ -4,6 +4,7 @@ import com.example.skolesystemeksamen24timers.dto.StudentRequest;
 import com.example.skolesystemeksamen24timers.dto.StudentResponse;
 import com.example.skolesystemeksamen24timers.entity.Course;
 import com.example.skolesystemeksamen24timers.entity.Student;
+import com.example.skolesystemeksamen24timers.entity.Teacher;
 import com.example.skolesystemeksamen24timers.repository.CourseRepository;
 import com.example.skolesystemeksamen24timers.repository.StudentRepository;
 import org.springframework.http.HttpStatus;
@@ -80,7 +81,13 @@ public class StudentService {
     }
 
     public void deleteStudent(Long id) {
-        Student foundStudent = studentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found"));
+        Student foundStudent = studentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Student not found"));
+        List<Course> courses = foundStudent.getCourses();
+        for (int i = 0; i < courses.size(); i++) {
+            Course temp = courses.get(i);
+            temp.setStudents(null);
+            courseRepository.save(temp);
+        }
         studentRepository.delete(foundStudent);
     }
 

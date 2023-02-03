@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/delivery")
+@RequestMapping("/api/teachers")
 public class TeacherController {
 
     private final TeacherService teacherService;
@@ -20,33 +20,31 @@ public class TeacherController {
     }
 
     @GetMapping()
-    List<TeacherResponse> getAllDeliveries() {
+    List<TeacherResponse> getAllTeachers() {
         return teacherService.getAll();
     }
 
     @GetMapping(path = "/{id}")
-    TeacherResponse getDeliveryById(@PathVariable Long id) {
+    TeacherResponse getTeacherById(@PathVariable Long id) {
         return teacherService.getById(id);
     }
-    /*
 
     @PostMapping()
-    TeacherResponse addDelivery(@RequestBody TeacherRequest body) {
-        return teacherService.addDelivery(body);
+    TeacherResponse addTeacher(@RequestBody TeacherRequest body) {
+        return teacherService.addTeacher(body);
     }
 
     @PutMapping()
-    ResponseEntity<Boolean> editDelivery(@RequestBody TeacherRequest body) {
-        teacherService.editDelivery(body);
+    ResponseEntity<Boolean> editTeacher(@RequestBody TeacherRequest body) {
+        teacherService.editTeacher(body);
         return ResponseEntity.ok(true);
     }
 
     @DeleteMapping(path = "/{id}")
-    ResponseEntity<Boolean> deleteDelivery(@PathVariable Long id) {
-        teacherService.deleteDelivery(id);
+    ResponseEntity<Boolean> deleteTeacher(@PathVariable Long id) {
+        teacherService.deleteTeacher(id);
         return ResponseEntity.ok(true);
     }
 
-     */
 
 }

@@ -22,37 +22,37 @@ public class StudentController {
     }
 
     @GetMapping()
-    List<StudentResponse> getAllProducts() {
+    List<StudentResponse> getAllStudents() {
         return studentService.getAll();
     }
 
 
 
     @GetMapping(path = "/{id}")
-    StudentResponse getProductById(@PathVariable Long id) {
+    StudentResponse getStudentById(@PathVariable Long id) {
         return studentService.getById(id);
     }
 
     @GetMapping(path = "/name")
     @ResponseBody
-    StudentResponse getProductByName(@RequestParam String name) {
+    StudentResponse getStudentByName(@RequestParam String name) {
         return studentService.getStudentByName(name);
     }
 
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    StudentResponse addProduct(@RequestBody StudentRequest body) {
+    StudentResponse addStudent(@RequestBody StudentRequest body) {
         return studentService.addStudent(body);
     }
 
     @PutMapping()
-    ResponseEntity<Boolean> editProduct(@RequestBody StudentRequest body) {
+    ResponseEntity<Boolean> editStudent(@RequestBody StudentRequest body) {
         studentService.editStudent(body);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    ResponseEntity<Boolean> deleteProduct(@PathVariable Long id) {
+    ResponseEntity<Boolean> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }

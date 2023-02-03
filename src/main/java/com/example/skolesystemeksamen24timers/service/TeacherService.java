@@ -27,77 +27,49 @@ public class TeacherService {
     }
 
     public List<TeacherResponse> getAll() {
-        List<Teacher> deliveries = teacherRepository.findAll();
-        return deliveries.stream().map(delivery -> new TeacherResponse(delivery)).toList();
+        List<Teacher> teachers = teacherRepository.findAll();
+        return teachers.stream().map(teacher -> new TeacherResponse(teacher)).toList();
     }
 
     public TeacherResponse getById(Long id) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Delivery not found"));
+        Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"teacher not found"));
         return new TeacherResponse(teacher);
     }
 
-    /*
-    public TeacherResponse addDelivery(TeacherRequest teacherRequest) {
 
-        List<Course> courses = new ArrayList<>();
-        for (int i = 0; i < teacherRequest.getProductOrderIds().size(); i++) {
-            Course temp = courseRepository.findById(teacherRequest.getProductOrderIds().get(i)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"ProductOrder not found"));
-            if (temp.getTeacher() != null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"ProductOrder already has a delivery");
-            }
-            courses.add(temp);
-        }
+    public TeacherResponse addTeacher(TeacherRequest teacherRequest) {
+
         Teacher tempTeacher = Teacher.builder()
-                .deliveryDate(teacherRequest.getDeliveryDate())
-                .fromWarehouse(teacherRequest.getFromWarehouse())
-                .destination(teacherRequest.getDestination())
-                .courses(courses)
+                .name(teacherRequest.getName())
+                .emailAddress(teacherRequest.getEmailAddress())
                 .build();
         teacherRepository.save(tempTeacher);
-
-        for (int i = 0; i < courses.size(); i++) {
-            Course temp = courses.get(i);
-            temp.setTeacher(tempTeacher);
-            courseRepository.save(temp);
-        }
 
         return new TeacherResponse(tempTeacher);
     }
 
-    public void editDelivery(TeacherRequest teacherRequest) {
-        Teacher foundTeacher = teacherRepository.findById(teacherRequest.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Delivery not found"));
+    public void editTeacher(TeacherRequest teacherRequest) {
+        Teacher foundTeacher = teacherRepository.findById(teacherRequest.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"teacher not found"));
 
+    if (teacherRequest.getName() != null) {
+        foundTeacher.setName(teacherRequest.getName());
+    }
+    if (teacherRequest.getEmailAddress() != null) {
+        foundTeacher.setEmailAddress(teacherRequest.getEmailAddress());
+    }
+    if (teacherRequest.getCourseIds() != null) {
         List<Course> courses = new ArrayList<>();
-        for (int i = 0; i < teacherRequest.getProductOrderIds().size(); i++) {
-            Course temp = courseRepository.findById(teacherRequest.getProductOrderIds().get(i)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"ProductOrder not found"));
-            if (temp.getTeacher() != null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"ProductOrder already has a delivery");
-            }
+        for (int i = 0; i < teacherRequest.getCourseIds().size(); i++) {
+            Course temp = courseRepository.findById(teacherRequest.getCourseIds().get(i)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found"));
             courses.add(temp);
         }
-        if (teacherRequest.getDeliveryDate() != null) {
-            foundTeacher.setDeliveryDate(teacherRequest.getDeliveryDate());
-        }
-        if (teacherRequest.getFromWarehouse() != null) {
-            foundTeacher.setFromWarehouse(teacherRequest.getFromWarehouse());
-        }
-        if (teacherRequest.getDestination() != null) {
-            foundTeacher.setDestination(teacherRequest.getDestination());
-        }
-        if (teacherRequest.getProductOrderIds() != null) {
-            foundTeacher.setCourses(courses);
-        }
+        foundTeacher.setCourses(courses);
+    }
         teacherRepository.save(foundTeacher);
-
-        for (int i = 0; i < courses.size(); i++) {
-            Course temp = courses.get(i);
-            temp.setTeacher(foundTeacher);
-            courseRepository.save(temp);
-        }
     }
 
-    public void deleteDelivery(Long id) {
-        Teacher foundTeacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Delivery not found"));
+    public void deleteTeacher(Long id) {
+        Teacher foundTeacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Teacher not found"));
         List<Course> courses = foundTeacher.getCourses();
         for (int i = 0; i < courses.size(); i++) {
             Course temp = courses.get(i);
@@ -107,5 +79,5 @@ public class TeacherService {
         teacherRepository.delete(foundTeacher);
     }
 
-     */
+
 }
