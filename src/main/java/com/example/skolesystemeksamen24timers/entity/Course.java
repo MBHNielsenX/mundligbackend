@@ -1,6 +1,6 @@
 package com.example.skolesystemeksamen24timers.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,10 +40,11 @@ public class Course {
     private int maxStudents;
 
     @ManyToMany()
-    @JsonIgnore
+    @JsonIgnoreProperties("courses")
     private List<Student> students;
 
     @ManyToOne()
+    @JsonIgnoreProperties("courses")
     private Teacher teacher;
 
     @CreationTimestamp
@@ -52,3 +53,4 @@ public class Course {
     @UpdateTimestamp
     private LocalDateTime updated;
 }
+
