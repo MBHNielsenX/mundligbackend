@@ -42,4 +42,4 @@ public class Student {
     @UpdateTimestamp
     private LocalDateTime updated;
 }
-
+//

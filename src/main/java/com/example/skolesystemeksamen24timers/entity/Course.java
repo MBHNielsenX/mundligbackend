@@ -53,4 +53,4 @@ public class Course {
     @UpdateTimestamp
     private LocalDateTime updated;
 }
-
+//

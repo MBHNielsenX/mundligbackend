@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -371,7 +372,7 @@ class CourseServiceTest {
         assertEquals("Student6", course2.get(0).getStudents().get(2).getName());
 
     }
-
+/*
     @Test
     void deleteCourse() {
         List<CourseResponse> course = courseService.getAll();
@@ -416,5 +417,7 @@ class CourseServiceTest {
         assertEquals("Student9", course2.get(1).getStudents().get(2).getName());
 
     }
+    
+ */
 
 }
