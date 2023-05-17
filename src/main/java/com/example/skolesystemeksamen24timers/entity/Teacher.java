@@ -28,7 +28,7 @@ public class Teacher {
     @Column(length = 100)
     private String emailAddress;
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "teacher")
     @JsonIgnore
     @ToString.Exclude
     private List<Course> courses;

@@ -20,7 +20,8 @@ public class TeacherService {
     StudentRepository studentRepository;
     CourseRepository courseRepository;
 
-    public TeacherService(TeacherRepository teacherRepository, StudentRepository studentRepository, CourseRepository courseRepository) {
+
+    public TeacherService(TeacherRepository teacherRepository, StudentRepository studentRepository, CourseRepository courseRepository ) {
         this.teacherRepository = teacherRepository;
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
@@ -33,6 +34,14 @@ public class TeacherService {
 
     public TeacherResponse getById(Long id) {
         Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"teacher not found"));
+        return new TeacherResponse(teacher);
+    }
+
+    public TeacherResponse getByName(String name) {
+        System.out.println(name);
+        Teacher teacher = teacherRepository.findByName(name);
+        System.out.println(teacher);
+
         return new TeacherResponse(teacher);
     }
 
@@ -70,15 +79,14 @@ public class TeacherService {
 
     public void deleteTeacher(Long id) {
         Teacher foundTeacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Teacher not found"));
-        List<Course> courses = foundTeacher.getCourses();
-        for (int i = 0; i < courses.size(); i++) {
-            Course temp = courses.get(i);
-            temp.setTeacher(null);
-            courseRepository.save(temp);
+        List<Course> listOfCourses = courseRepository.findByTeacher_Id(id);
+        for (int i = 0; i < listOfCourses.size(); i++) {
+            Course foundCourse = courseRepository.findById(listOfCourses.get(i).getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found"));
+            foundCourse.setTeacher(null);
+            courseRepository.save(foundCourse);
         }
         teacherRepository.delete(foundTeacher);
     }
-
 
 }
 //

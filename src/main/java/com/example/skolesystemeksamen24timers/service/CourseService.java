@@ -77,10 +77,17 @@ public class CourseService {
         courseRepository.save(foundCourse);
     }
 
-    public void deleteProductOrder(Long id) {
+    public void deleteCourse(Long id) {
         Course foundCourse = courseRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
         courseRepository.delete(foundCourse);
     }
+
+    public void removeTeacherFromCourse(Long courseId) {
+        Course foundCourse = courseRepository.findById(courseId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found"));
+        foundCourse.setTeacher(null);
+        courseRepository.save(foundCourse);
+    }
+
 
     public CourseResponse removeStudentFromCourse(Long courseId, Long studentId) {
         Course foundCourse = courseRepository.findById(courseId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found"));

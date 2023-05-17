@@ -29,6 +29,12 @@ public class TeacherController {
         return teacherService.getById(id);
     }
 
+    @GetMapping(path = "/name")
+    TeacherResponse getTeacherByName(@RequestParam String name) {
+        System.out.println(name);
+        return teacherService.getByName(name);
+    }
+
     @PostMapping()
     TeacherResponse addTeacher(@RequestBody TeacherRequest body) {
         return teacherService.addTeacher(body);

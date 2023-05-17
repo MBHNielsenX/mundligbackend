@@ -40,12 +40,15 @@ public class CourseResponse {
         this.endDate = course.getEndDate();
         this.ectsPoints = course.getEctsPoints();
         this.maxStudents = course.getMaxStudents();
+        /*
         if (course.getTeacher() != null) {
             this.teacher = course.getTeacher();
         }
         if (course.getStudents() != null) {
             this.students = course.getStudents().stream().map(StudentResponse::new).collect(Collectors.toList());
         }
+
+         */
     }
 }
 //

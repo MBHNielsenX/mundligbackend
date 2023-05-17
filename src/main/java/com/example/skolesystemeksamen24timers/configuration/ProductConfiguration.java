@@ -137,7 +137,7 @@ public class ProductConfiguration implements ApplicationRunner {
                 .ectsPoints(4)
                 .maxStudents(30)
                 .teacher(teacher1)
-                .students(List.of(student1, student2, student3))
+                .students(List.of(student2, student3))
                 .build();
         Course course5 = Course.builder()
                 .name("Course5")
@@ -174,7 +174,7 @@ public class ProductConfiguration implements ApplicationRunner {
         teacherRepository.save(teacher2);
         teacherRepository.save(teacher3);
 
-        student1.setCourses(List.of(course1, course4));
+        student1.setCourses(List.of(course1));
         student2.setCourses(List.of(course1, course4));
         student3.setCourses(List.of(course1, course4));
         student4.setCourses(List.of(course2, course5));

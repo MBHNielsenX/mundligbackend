@@ -41,7 +41,7 @@ public class CourseController {
 
     @DeleteMapping(path = "/{id}")
     ResponseEntity<Boolean> deleteCourse(@PathVariable Long id) {
-        courseService.deleteProductOrder(id);
+        courseService.deleteCourse(id);
         return ResponseEntity.ok(true);
     }
 

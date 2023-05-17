@@ -26,9 +26,9 @@ public class StudentResponse {
         this.id = student.getId();
         this.name = student.getName();
         this.emailAddress = student.getEmailAddress();
-       //if (student.getCourses() != null) {
-           //this.courses = student.getCourses().stream().map(CourseResponse::new).collect(Collectors.toList());
-       //}
+        if (student.getCourses() != null) {
+           this.courses = student.getCourses().stream().map(CourseResponse::new).collect(Collectors.toList());
+       }
 
     }
 }
